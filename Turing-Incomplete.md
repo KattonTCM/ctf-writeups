@@ -143,7 +143,7 @@ From here, I used the two states to keep track of whether the program should *su
           7: {write: 8, L: sub}
           8: {write: 9, L: sub}
           A: {write: 0, L: sub}
-          B: {write B, R: add}
+          B: {write: B, R: add}
   ```
 </details>
 
