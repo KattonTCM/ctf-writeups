@@ -313,7 +313,7 @@ From all of this work, I used the final instruction set to create my final input
 
 ```RB1 R01 R11 R21 R31 R41 R51 R61 R71 R81 RE1 LB0 L00 LC0 H00 H00 L10 L20 L30 L40 L50 L60 L70 L80 L90 RC1 RD1 RB1 LE0 L00 L00 LF1```
 
-I've copied the same instructions into the Turing Machine simulator website [here](turingmachine.io/?import-gist=3b269e9d65d942c9b678981722db37d1).
+I've copied the same instructions into the Turing Machine simulator website [here](https://turingmachine.io/?import-gist=3b269e9d65d942c9b678981722db37d1).
 
 And at around 4am, I got the flag :D
 
