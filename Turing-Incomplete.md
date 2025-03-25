@@ -203,7 +203,7 @@ Now, the hard part: moving two numbers over **with** carry.
 
 The main issue with solving this part was that the `A` with the most significant bit needs to be initialized to `0` while the least significant `A` needs to be initialized to a "delayed" value (in my case, `C`). 
 
-To solve this, I used the first rightmost `F` to switch the state so that after the first pass/addition. This allows `C` to be overwritten based on its state: `0` if in `state 1` and `C` if in `state 0`. As a result, the tape would be initialized as such: `j i C 0`, with `i` and `j` representing some arbitrary `0-9` value.
+To solve this, I used the first rightmost `F` to bounce back to the most significant digit. This allows `C` to be overwritten based on its state: the value becomes `0` if in `state 1` and `C` if in `state 0`. As a result, the tape would be initialized as such: `j i C 0`, with `i` and `j` representing some arbitrary `0-9` value.
 
 <details>
 <summary> Moving 2 Numbers Over (With Carry) Turing Machine</summary>
