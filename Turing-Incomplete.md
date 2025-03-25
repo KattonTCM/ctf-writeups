@@ -317,6 +317,8 @@ I've copied the same instructions into the Turing Machine simulator website [her
 
 And at around 4am, I got the flag :D
 
+![Turing Incomplete Commandline Solve](/assets/turing_incomplete_solved.png)
+
 <details>
   <summary> Flag </summary>
 
