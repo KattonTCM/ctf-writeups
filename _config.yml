@@ -1,0 +1,4 @@
+remote_theme: lewismiddleton/cayman-dark
+
+plugins:
+  - jekyll-remote-theme
