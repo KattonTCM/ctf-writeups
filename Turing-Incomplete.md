@@ -102,7 +102,7 @@ I used a [Turing Machine Simulator](https://turingmachine.io/) that was given as
 
 Moving one number seems simple until you realize you only have two states.
 
-The first issue was keeping track of whether I had already accounted for moving a `0` over. To resolve this, I used `B` to represent that the Machine should 'ignore' this value and move to the next. 
+The first issue was keeping track of whether I had already accounted for moving a `0` over. To resolve this, I used `B` to represent that the Machine should 'ignore' this value.
 
 The second issue was figuring out the starting value `A`. Logically an `A` should become `0` on its first update.
 
@@ -143,15 +143,16 @@ From here, I used the two states to keep track of whether the program should *su
           7: {write: 8, L: sub}
           8: {write: 9, L: sub}
           A: {write: 0, L: sub}
-          B: {write: B, R: add}
   ```
 </details>
 
 ### Challenge 2: Moving 2 Numbers
 
-The code for the previous thought process almost worked for adding two numbers (**without** carry). However, when adding `4 + 4`, the Machine resulted in `9`. So what happened?
+First, I had to add a `B` instruction for the other state so that when the Machine reads `B`, it passes the state along. The Machine moves left for `state 0` and moves right for `state 1`.
 
-When the Machine (in `state 0`) evaluates `0`, it adds `+1` to the sum. This is not a problem when adding one number because our code accounted for this (turning `A` -> `0`). However, when adding two numbers, the process of turing `0` to `B` occurs twice! This causes an off-by-one error. To account for this, I added an additional state so that `A` -> `C` -> `0`. 
+This addition almost worked for adding two numbers (**without** carry). However, when adding `4 + 4`, the Machine resulted in `9`. So what happened?
+
+When the Machine (in `state 0`) evaluates `0`, it adds `+1` to the sum. This is not a problem when adding one number because our code accounted for this (turning `A` -> `0`). However, when adding two numbers, the process of turning `0` to `B` occurs twice! This causes an off-by-one error. To account for this, I added an additional state so that `A` -> `C` -> `0`. 
 
 <details>
   <summary> Moving 2 Numbers Over (Without Carry) Turing Machine</summary>
@@ -191,7 +192,7 @@ When the Machine (in `state 0`) evaluates `0`, it adds `+1` to the sum. This is 
           7: {write: 8, L: sub}
           8: {write: 9, L: sub}
           A: {write: C, L: sub}
-          B: {write: B, R: add}
+          B: {write: B, R: add} # new
           C: {write: 0, L: sub} # new
   ```
 
@@ -214,39 +215,39 @@ To solve this, I used the first rightmost `F` to switch the state so that after 
   blank: 'F'
   start state: start
   table:
-  # Adjusts the tape position to be in the correct spot
-  start:
-      [0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]: {R: sub}
-  # subtract
-  sub:
-      0: {write: B, R: add}
-      1: {write: 0, R: add}
-      2: {write: 1, R: add}
-      3: {write: 2, R: add}
-      4: {write: 3, R: add}
-      5: {write: 4, R: add}
-      6: {write: 5, R: add}
-      7: {write: 6, R: add}
-      8: {write: 7, R: add}
-      9: {write: 8, R: add}
-      B: {write: B, L: sub}
-      C: {write: C, L: sub} # new
-  # add
-  add:
-      0: {write: 1, L: sub}
-      1: {write: 2, L: sub}
-      2: {write: 3, L: sub}
-      3: {write: 4, L: sub}
-      4: {write: 5, L: sub}
-      5: {write: 6, L: sub}
-      6: {write: 7, L: sub}
-      7: {write: 8, L: sub}
-      8: {write: 9, L: sub}
-      9: {write: C, R: add} # new
-      A: {write: C, R: add} # modified
-      B: {write: B, R: add}
-      C: {write: 0, L: sub}
-      F: {write: F, L: add} # new
+      # Adjusts the tape position to be in the correct spot
+      start:
+          [0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]: {R: sub}
+      # subtract
+      sub:
+          0: {write: B, R: add}
+          1: {write: 0, R: add}
+          2: {write: 1, R: add}
+          3: {write: 2, R: add}
+          4: {write: 3, R: add}
+          5: {write: 4, R: add}
+          6: {write: 5, R: add}
+          7: {write: 6, R: add}
+          8: {write: 7, R: add}
+          9: {write: 8, R: add}
+          B: {write: B, L: sub}
+          C: {write: C, L: sub} # new
+      # add
+      add:
+          0: {write: 1, L: sub}
+          1: {write: 2, L: sub}
+          2: {write: 3, L: sub}
+          3: {write: 4, L: sub}
+          4: {write: 5, L: sub}
+          5: {write: 6, L: sub}
+          6: {write: 7, L: sub}
+          7: {write: 8, L: sub}
+          8: {write: 9, L: sub}
+          9: {write: C, R: add} # new
+          A: {write: C, R: add} # modified
+          B: {write: B, R: add}
+          C: {write: 0, L: sub}
+          F: {write: F, L: add} # new
   ```
 
 </details>
