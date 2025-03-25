@@ -203,7 +203,7 @@ Now, the hard part: moving two numbers over **with** carry.
 
 The main issue with solving this part was that the `A` with the most significant bit needs to be initialized to `0` while the least significant `A` needs to be initialized to a "delayed" value (in my case, `C`). 
 
-To solve this, I used the first rightmost `F` to switch the state so that after the first pass/addition, the tape would be initialized as such: `j i C 0`, with `i` and `j` representing some arbitrary `0-9` value.
+To solve this, I used the first rightmost `F` to switch the state so that after the first pass/addition. This allows `C` to be overwritten based on its state: `0` if in `state 1` and `C` if in `state 0`. As a result, the tape would be initialized as such: `j i C 0`, with `i` and `j` representing some arbitrary `0-9` value.
 
 <details>
 <summary> Moving 2 Numbers Over (With Carry) Turing Machine</summary>
@@ -211,7 +211,7 @@ To solve this, I used the first rightmost `F` to switch the state so that after 
   This Turing Machine adds two values, `i` and `j`, over to the `AA` position in the tape.
   
   ```
-  input: '11AA'
+  input: '99AA'
   blank: 'F'
   start state: start
   table:
@@ -266,44 +266,44 @@ Modifying the Turing Machine for 3 numbers was quite simple. I just needed to ad
   blank: 'F'
   start state: start
   table:
-  # Adjusts the tape position to be in the correct spot
-  start:
-      [0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]: {R: start1}
-  start1:
-      [0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]: {R: sub}
-  # subtract
-  sub:
-      0: {write: B, R: add}
-      1: {write: 0, R: add}
-      2: {write: 1, R: add}
-      3: {write: 2, R: add}
-      4: {write: 3, R: add}
-      5: {write: 4, R: add}
-      6: {write: 5, R: add}
-      7: {write: 6, R: add}
-      8: {write: 7, R: add}
-      9: {write: 8, R: add}
-      B: {write: B, L: sub}
-      C: {write: 0, L: sub} # modified
-      D: {write: C, L: sub} # new
-  # add
-  add:
-      0: {write: 1, L: sub}
-      1: {write: 2, L: sub}
-      2: {write: 3, L: sub}
-      3: {write: 4, L: sub}
-      4: {write: 5, L: sub}
-      5: {write: 6, L: sub}
-      6: {write: 7, L: sub}
-      7: {write: 8, L: sub}
-      8: {write: 9, L: sub}
-      9: {write: C, R: add}
-      A: {write: D, R: add} # modified
-      B: {write: B, R: add}
-      C: {write: E, L: sub} # modified
-      D: {write: 0, L: sub}
-      E: {write: 0, L: sub} # new
-      F: {write: F, L: add}
+      # Adjusts the tape position to be in the correct spot
+      start:
+          [0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]: {R: start1}
+      start1:
+          [0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F]: {R: sub}
+      # subtract
+      sub:
+          0: {write: B, R: add}
+          1: {write: 0, R: add}
+          2: {write: 1, R: add}
+          3: {write: 2, R: add}
+          4: {write: 3, R: add}
+          5: {write: 4, R: add}
+          6: {write: 5, R: add}
+          7: {write: 6, R: add}
+          8: {write: 7, R: add}
+          9: {write: 8, R: add}
+          B: {write: B, L: sub}
+          C: {write: 0, L: sub} # modified
+          D: {write: C, L: sub} # new
+      # add
+      add:
+          0: {write: 1, L: sub}
+          1: {write: 2, L: sub}
+          2: {write: 3, L: sub}
+          3: {write: 4, L: sub}
+          4: {write: 5, L: sub}
+          5: {write: 6, L: sub}
+          6: {write: 7, L: sub}
+          7: {write: 8, L: sub}
+          8: {write: 9, L: sub}
+          9: {write: C, R: add}
+          A: {write: D, R: add} # modified
+          B: {write: B, R: add}
+          C: {write: E, L: sub} # modified
+          D: {write: 0, L: sub} # new
+          E: {write: 0, L: sub} # new
+          F: {write: F, L: add}
   ```
 </details>
 
